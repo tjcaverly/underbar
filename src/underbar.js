@@ -99,6 +99,14 @@
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array) {
+    var arr = [];
+
+    for (var e in array) {
+      if ( !(array[e] in arr) ) {
+        arr.push(array[e]);
+      }
+    }
+    return arr;
   };
 
 
