@@ -168,31 +168,37 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
-    //todo: comments
-    var arr = [];
-    var start = 0;
-    var skip1 = false;
-    if (accumulator === undefined){
-      if (Array.isArray(collection)){
-        start = 1;
-        accumulator = collection[0];
-      }
-    } 
 
+    var start = 0;          //index to start at in array (1 if no accumulator)
+    var skip1 = false;      //whether to skip the first item in non-array (true if no accumulator)
+
+
+    if ( (accumulator === undefined) && Array.isArray(collection) ){
+      // set start to 1 in arrays, and accumulator to first array element
+      start = 1;
+      accumulator = collection[0];
+    } else if (accumulator === undefined){
+      // set skip1 to true in non-arrays
+      skip1 = true;
+    }
     
     if (Array.isArray(collection)) {
+      // run iterator for arrays
       for (var i = start; i < collection.length; i++){
         accumulator = iterator(accumulator, collection[i]);
       }
     } else {
-      if (accumulator===undefined){
-        skip1 = true;
-      }
+      // run iterator for non-arrays
       for (var key in collection){
+        // skip first element if skip1 is true, then set accumulator to first element
+        // and skip1 to false 
         if (!skip1){
           accumulator = iterator(accumulator, collection[key]);
+        } else {
+          accumulator = collection[key];
+          skip1 = false;
         }
-        skip1 = false;
+
       }
     }
     return accumulator;
