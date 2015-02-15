@@ -102,7 +102,7 @@
     var arr = [];
 
     for (var i = 0; i<array.length; i++) {
-      if ( !(array[i] in arr) ) {
+      if ( !(_.contains(arr, array[i]))) {
         arr.push(array[i]);
       }
     }
