@@ -401,6 +401,25 @@
   // Example:
   // _.zip(['a','b','c','d'], [1,2,3]) returns [['a',1], ['b',2], ['c',3], ['d',undefined]]
   _.zip = function() {
+    var maxLength = 0;
+    var resultArray = [];
+
+    // determine the length of the longest array
+    for (var i = 0; i<arguments.length; i++){
+      maxLength = Math.max(maxLength,arguments[i].length);
+    }
+
+    // zip the arrays
+    for (var i = 0; i<maxLength; i++){
+      resultArray[i] = [];
+
+      // in the ith array, push the ith item from each argument
+      for (var j = 0; j<arguments.length; j++ ){
+        resultArray[i].push(arguments[j][i]);
+      }
+    }
+
+    return resultArray;
   };
 
   // Takes a multidimensional array and converts it to a one-dimensional array.
