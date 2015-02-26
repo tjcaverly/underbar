@@ -386,6 +386,7 @@
   // Calls the method named by functionOrKey on each value in the list.
   // Note: You will need to learn a bit about .apply to complete this.
   _.invoke = function(collection, functionOrKey, args) {
+
   };
 
   // Sort the object's values by a criterion produced by an iterator.
@@ -427,6 +428,21 @@
   //
   // Hint: Use Array.isArray to check if something is an array
   _.flatten = function(nestedArray, result) {
+    var final_array = [];
+
+    var fun = function(array){
+      for ( var i = 0;i<array.length; i++){
+        if (Array.isArray(array[i])) {
+          fun(array[i]);
+        } else {
+          final_array.push(array[i]);
+        }
+      }
+    }
+
+    fun(nestedArray);
+
+    return final_array;
   };
 
   // Takes an arbitrary number of arrays and produces an array that contains
